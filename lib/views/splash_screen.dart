@@ -163,7 +163,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       textAlign: TextAlign.center,
                       color: AppColors.neutral600,
                     ),
-                    Gaps.v12,
+                    Gaps.v10,
                     TbodyMedium16(
                       "내일은 당신의 행운이 되길.",
                       textAlign: TextAlign.center,
