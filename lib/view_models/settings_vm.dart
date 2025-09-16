@@ -24,6 +24,13 @@ class SettingsViewModel extends Notifier<SettingsModel> {
     return state.darkMode ? ThemeMode.dark : ThemeMode.light;
   }
 
+  bool isDark(BuildContext context) {
+    if (state.followSystem) {
+      return Theme.of(context).brightness == Brightness.dark;
+    }
+    return state.darkMode;
+  }
+
   @override
   SettingsModel build() {
     return SettingsModel(

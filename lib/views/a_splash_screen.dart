@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
+import 'package:yeong_mood_tracker/views/b0_sign_up_screen.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   static const routeName = "splash";
@@ -107,6 +109,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     await Future.delayed(const Duration(milliseconds: 300));
     _taglineController.forward();
+
+    await Future.delayed(const Duration(milliseconds: 1500));
+    if (mounted) {
+      context.go(SignUpScreen.routeUrl);
+    }
   }
 
   @override

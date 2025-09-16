@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yeong_mood_tracker/models/user_model.dart';
+import 'package:yeong_mood_tracker/models/a_user_model.dart';
 
 class UserRepository {
   final FirebaseFirestore _db = FirebaseFirestore.instance;

@@ -44,7 +44,7 @@ class AppColors {
   // Success, Warning, Error colors
   static final success = OklchColor(0.7, 0.18, 140).toColor();
   static final warning = OklchColor(0.8, 0.18, 80).toColor();
-  static final error = OklchColor(0.8, 0.18, 35).toColor();
+  static final error = OklchColor(0.7, 0.18, 35).toColor();
 
   // Helper method to create color variations
   static Color createVariation({
