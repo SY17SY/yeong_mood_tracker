@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yeong_mood_tracker/repos/auth_repo.dart';
+import 'package:yeong_mood_tracker/repos/b_auth_repo.dart';
 import 'package:yeong_mood_tracker/utils.dart';
-import 'package:yeong_mood_tracker/view_models/user_vm.dart';
+import 'package:yeong_mood_tracker/view_models/a_user_vm.dart';
 
 class SignUpViewModel extends AsyncNotifier<void> {
   late final AuthRepository _repository;

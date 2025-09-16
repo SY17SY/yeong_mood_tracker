@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yeong_mood_tracker/repos/auth_repo.dart';
+import 'package:yeong_mood_tracker/repos/b_auth_repo.dart';
 import 'package:yeong_mood_tracker/utils.dart';
 
 class LoginViewModel extends AsyncNotifier<void> {

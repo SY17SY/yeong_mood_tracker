@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yeong_mood_tracker/models/user_model.dart';
-import 'package:yeong_mood_tracker/repos/auth_repo.dart';
-import 'package:yeong_mood_tracker/repos/user_repo.dart';
+import 'package:yeong_mood_tracker/models/a_user_model.dart';
+import 'package:yeong_mood_tracker/repos/b_auth_repo.dart';
+import 'package:yeong_mood_tracker/repos/a_user_repo.dart';
 
 class UserViewModel extends AsyncNotifier<void> {
   late final UserRepository _repository;
