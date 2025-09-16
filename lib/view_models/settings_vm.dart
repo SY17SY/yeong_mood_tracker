@@ -8,19 +8,12 @@ class SettingsViewModel extends Notifier<SettingsModel> {
 
   SettingsViewModel(this._repository);
 
-  void setDarkMode(bool value) {
-    _repository.setDarkMode(value);
+  void setThemeMode({required bool followSystem, required bool darkMode}) {
+    _repository.setFollowSystem(followSystem);
+    _repository.setDarkMode(darkMode);
     state = SettingsModel(
-      darkMode: value,
-      followSystem: state.followSystem,
-    );
-  }
-
-  void setFollowSystem(bool value) {
-    _repository.setFollowSystem(value);
-    state = SettingsModel(
-      darkMode: state.darkMode,
-      followSystem: value,
+      darkMode: darkMode,
+      followSystem: followSystem,
     );
   }
 
