@@ -6,7 +6,7 @@ import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
-import 'package:yeong_mood_tracker/view_models/login_vm.dart';
+import 'package:yeong_mood_tracker/view_models/c_login_vm.dart';
 import 'package:yeong_mood_tracker/widgets/bottom_auth.dart';
 import 'package:yeong_mood_tracker/widgets/form_button.dart';
 import 'package:yeong_mood_tracker/widgets/input_clear_button.dart';

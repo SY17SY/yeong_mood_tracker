@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yeong_mood_tracker/views/a_splash_screen.dart';
-import 'package:yeong_mood_tracker/views/b0_sign_up_screen.dart';
-import 'package:yeong_mood_tracker/views/c_login_screen.dart';
+import 'package:yeong_mood_tracker/views/abc_authentication/a_splash_screen.dart';
+import 'package:yeong_mood_tracker/views/abc_authentication/b0_sign_up_screen.dart';
+import 'package:yeong_mood_tracker/views/abc_authentication/c_login_screen.dart';
 
 final routerProvider = Provider(
   (ref) => GoRouter(

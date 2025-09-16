@@ -6,8 +6,8 @@ import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
-import 'package:yeong_mood_tracker/views/b1_email_sign_up_screen.dart';
-import 'package:yeong_mood_tracker/views/c_login_screen.dart';
+import 'package:yeong_mood_tracker/views/abc_authentication/b1_email_sign_up_screen.dart';
+import 'package:yeong_mood_tracker/views/abc_authentication/c_login_screen.dart';
 import 'package:yeong_mood_tracker/widgets/auth_button.dart';
 import 'package:yeong_mood_tracker/widgets/bottom_auth.dart';
 
