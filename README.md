@@ -95,6 +95,8 @@ lib/
 ├── models/            # Data models
 ├── repos/             # Repository layer for data access
 ├── view_models/       # Riverpod state management
+├── views/             # Screens
+├── widgets/           # Reusable widgets
 ├── main.dart          # App entry point
 ├── router.dart        # Navigation configuration
 └── utils.dart         # Utility functions
