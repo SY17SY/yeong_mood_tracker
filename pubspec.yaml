@@ -46,6 +46,8 @@ dependencies:
   firebase_auth: ^5.7.0
   cloud_firestore: ^5.6.12
   firebase_storage: ^12.4.10
+  flutter_svg: ^2.2.1
+  canary_oklch: ^0.0.5
 
 dev_dependencies:
   flutter_test:

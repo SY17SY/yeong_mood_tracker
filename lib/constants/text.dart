@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yeong_mood_tracker/view_models/settings_vm.dart';
 
 class TtitleLarge20 extends ConsumerWidget {
   final String text;
@@ -22,11 +21,10 @@ class TtitleLarge20 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            color: (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -57,11 +55,10 @@ class TtitleMedium18 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -92,11 +89,10 @@ class TtitleSmall16 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.titleSmall!.copyWith(
-            color: color ?? (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -127,11 +123,10 @@ class TbodyLarge18 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: color ?? (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -162,11 +157,10 @@ class TbodyMedium16 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: color ?? (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -197,11 +191,10 @@ class TbodySmall14 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            color: color ?? (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -232,11 +225,10 @@ class TlabelLarge14 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            color: color ?? (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),
@@ -267,11 +259,10 @@ class TlabelSmall12 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider).darkMode;
     return Text(
       text,
       style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: color ?? (isDark ? Colors.white : Colors.black),
+            color: color,
             fontSize: fontSize,
             height: maxLines == 1 ? 1.0 : 1.4,
           ),

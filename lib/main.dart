@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/firebase_options.dart';
 import 'package:yeong_mood_tracker/repos/settings_repo.dart';
@@ -41,14 +42,25 @@ class MyApp extends ConsumerWidget {
       themeMode: settings.themeMode,
       theme: ThemeData(
         useMaterial3: false,
+        primaryColor: AppColors.primary,
+        colorScheme: ColorScheme.light(
+          primary: AppColors.primary,
+          secondary: AppColors.secondary,
+          surface: AppColors.neutral100,
+          error: AppColors.error,
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: AppColors.textPrimaryLight,
+          onError: Colors.white,
+        ),
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          foregroundColor: AppColors.textPrimaryLight,
           elevation: 0,
         ),
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           titleLarge: TextStyle(
             fontFamily: "PretendardSemibold",
             fontSize: Sizes.d20,
@@ -93,61 +105,72 @@ class MyApp extends ConsumerWidget {
       ),
       darkTheme: ThemeData(
         useMaterial3: false,
+        primaryColor: AppColors.primary,
+        colorScheme: ColorScheme.dark(
+          primary: AppColors.primary,
+          secondary: AppColors.secondary,
+          surface: AppColors.neutral900,
+          error: AppColors.error,
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: AppColors.textPrimaryDark,
+          onError: Colors.white,
+        ),
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
+          foregroundColor: AppColors.textPrimaryDark,
           elevation: 0,
         ),
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           titleLarge: TextStyle(
             fontFamily: "PretendardSemibold",
             fontSize: Sizes.d20,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           titleMedium: TextStyle(
             fontFamily: "PretendardSemibold",
             fontSize: Sizes.d18,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           titleSmall: TextStyle(
             fontFamily: "PretendardSemibold",
             fontSize: Sizes.d16,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           bodyLarge: TextStyle(
             fontFamily: "PretendardMedium",
             fontSize: Sizes.d18,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           bodyMedium: TextStyle(
             fontFamily: "PretendardMedium",
             fontSize: Sizes.d16,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           bodySmall: TextStyle(
             fontFamily: "PretendardMedium",
             fontSize: Sizes.d14,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           labelLarge: TextStyle(
             fontFamily: "PretendardSemibold",
             fontSize: Sizes.d14,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
           labelSmall: TextStyle(
             fontFamily: "PretendardMedium",
             fontSize: Sizes.d12,
             letterSpacing: -0.025,
-            color: Colors.white,
+            color: AppColors.textPrimaryDark,
           ),
         ),
       ),
