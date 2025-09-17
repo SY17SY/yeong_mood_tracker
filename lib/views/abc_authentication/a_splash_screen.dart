@@ -5,7 +5,7 @@ import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
-import 'package:yeong_mood_tracker/views/abc_authentication/b0_sign_up_screen.dart';
+import 'package:yeong_mood_tracker/views/e_my_screen.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   static const routeName = "splash";
@@ -112,7 +112,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     await Future.delayed(const Duration(milliseconds: 1500));
     if (mounted) {
-      context.go(SignUpScreen.routeUrl);
+      context.go(MyScreen.routeUrl);
     }
   }
 

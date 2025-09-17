@@ -15,7 +15,7 @@ class AuthButton extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Container(
-        padding: EdgeInsets.all(Sizes.d16),
+        padding: EdgeInsets.all(Sizes.d24),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.neutral300, width: Sizes.d1),
         ),

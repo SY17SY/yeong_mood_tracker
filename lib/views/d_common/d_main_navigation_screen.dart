@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
+import 'package:yeong_mood_tracker/view_models/settings_vm.dart';
 import 'package:yeong_mood_tracker/views/e_my_screen.dart';
-import 'package:yeong_mood_tracker/views/f_upload_screen.dart';
+import 'package:yeong_mood_tracker/views/f_upload/f_upload_screen.dart';
 import 'package:yeong_mood_tracker/views/g_your_screen.dart';
 import 'package:yeong_mood_tracker/widgets/nav_tab.dart';
 
@@ -31,18 +33,23 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
     });
   }
 
+  void _onUploadTap() async {
+    context.push(UploadScreen.routeUrl);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isDark = ref.read(settingsProvider.notifier).isDark(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Offstage(offstage: _selectedIndex != 0, child: MyScreen()),
-          Offstage(offstage: _selectedIndex != 1, child: UploadScreen()),
           Offstage(offstage: _selectedIndex != 2, child: YourScreen()),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        color: isDark ? AppColors.neutral800 : AppColors.neutral100,
         padding: EdgeInsets.symmetric(horizontal: Sizes.d8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +64,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
               svgPath: "assets/images/mini_clova.svg",
               text: "upload",
               isSelected: _selectedIndex == 1,
-              onTap: () => _onTap(1),
+              onTap: _onUploadTap,
             ),
             NavTab(
               svgPath: "assets/images/your_clova.svg",

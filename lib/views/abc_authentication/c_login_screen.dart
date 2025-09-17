@@ -119,6 +119,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -128,14 +129,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(flex: 1, child: SizedBox()),
+                Expanded(flex: 2, child: SizedBox()),
                 Expanded(
                   flex: 2,
                   child: Image.asset("assets/images/clover.png"),
                 ),
                 Expanded(flex: 1, child: SizedBox()),
                 Expanded(
-                  flex: 15,
+                  flex: 30,
                   child: Column(
                     children: [
                       TtitleLarge20("Log in", fontSize: Sizes.d24),
@@ -166,6 +167,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                               controller: _emailController,
                               autocorrect: false,
+                              textInputAction: TextInputAction.next,
                               validator: _isEmailValid,
                               onSaved: (newValue) {
                                 if (newValue != null) {
@@ -202,6 +204,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               controller: _passwordController,
                               autocorrect: false,
                               obscureText: _obscureText,
+                              onEditingComplete: _onSubmitTap,
                               validator: _isPasswordValid,
                               onSaved: (newValue) {
                                 if (newValue != null) {
@@ -217,7 +220,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   _password.isEmpty ||
                                   ref.watch(loginProvider).isLoading,
                             ),
-                            Gaps.v32,
                           ],
                         ),
                       ),

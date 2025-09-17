@@ -31,9 +31,9 @@ class NavTab extends ConsumerWidget {
           opacity: isSelected ? 1 : 0.4,
           duration: Duration(milliseconds: 200),
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: Sizes.d12,
-              vertical: Sizes.d14,
+            padding: EdgeInsets.only(
+              top: Sizes.d6,
+              bottom: Sizes.d14,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

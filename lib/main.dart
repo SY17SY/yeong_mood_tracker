@@ -90,6 +90,13 @@ class MyApp extends ConsumerWidget {
             ),
           ),
         ),
+        tabBarTheme: TabBarTheme(
+          labelStyle: Theme.of(context).textTheme.titleSmall,
+          unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
+          unselectedLabelColor: AppColors.neutral500,
+          labelColor: Colors.white,
+          indicatorColor: Colors.transparent,
+        ),
         textTheme: TextTheme(
           titleLarge: TextStyle(
             fontFamily: "PretendardSemibold",
@@ -182,6 +189,13 @@ class MyApp extends ConsumerWidget {
               color: AppColors.error,
             ),
           ),
+        ),
+        tabBarTheme: TabBarTheme(
+          labelStyle: Theme.of(context).textTheme.titleSmall,
+          unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
+          unselectedLabelColor: AppColors.neutral500,
+          labelColor: Colors.white,
+          indicatorColor: Colors.transparent,
         ),
         textTheme: TextTheme(
           titleLarge: TextStyle(

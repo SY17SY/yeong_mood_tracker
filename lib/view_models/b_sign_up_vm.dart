@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yeong_mood_tracker/repos/b_auth_repo.dart';
 import 'package:yeong_mood_tracker/utils.dart';
 import 'package:yeong_mood_tracker/view_models/a_user_vm.dart';
+import 'package:yeong_mood_tracker/views/e_my_screen.dart';
 
 class SignUpViewModel extends AsyncNotifier<void> {
   late final AuthRepository _repository;
@@ -29,7 +31,7 @@ class SignUpViewModel extends AsyncNotifier<void> {
     if (state.hasError) {
       showFirebaseErrorSnack(context, state.error);
     } else {
-      // context.go();
+      context.go(MyScreen.routeUrl);
     }
   }
 }

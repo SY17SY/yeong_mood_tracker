@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yeong_mood_tracker/models/a_user_model.dart';
@@ -24,7 +25,7 @@ class UserViewModel extends AsyncNotifier<void> {
       email: credential.user!.email ?? "example@gmail.com",
       followings: 0,
       followers: 0,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
+      createdAt: Timestamp.now(),
     );
     await _repository.createUser(user);
   }
@@ -32,6 +33,12 @@ class UserViewModel extends AsyncNotifier<void> {
   Future<List<UserModel>> searchUsers(String keyword) async {
     final uid = ref.read(authRepository).user!.uid;
     return _repository.searchUsers(uid, keyword);
+  }
+
+  Future<void> deleteUser() async {
+    final uid = ref.read(authRepository).user!.uid;
+    await _repository.deleteUser(uid);
+    await _repository.deleteUserFiles(uid);
   }
 }
 

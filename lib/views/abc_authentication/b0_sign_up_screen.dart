@@ -40,14 +40,14 @@ class SignUpScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(flex: 1, child: SizedBox()),
+              Expanded(flex: 2, child: SizedBox()),
               Expanded(
                 flex: 2,
                 child: Image.asset("assets/images/clover.png"),
               ),
               Expanded(flex: 1, child: SizedBox()),
               Expanded(
-                flex: 15,
+                flex: 30,
                 child: Column(
                   children: [
                     TtitleLarge20("Sign up", fontSize: Sizes.d24),
