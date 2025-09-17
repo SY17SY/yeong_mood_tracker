@@ -60,6 +60,9 @@ class MyApp extends ConsumerWidget {
           foregroundColor: AppColors.textPrimaryLight,
           elevation: 0,
         ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: AppColors.neutral100,
+        ),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: Theme.of(context)
               .textTheme
@@ -159,6 +162,9 @@ class MyApp extends ConsumerWidget {
           backgroundColor: Colors.black,
           foregroundColor: AppColors.textPrimaryDark,
           elevation: 0,
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: AppColors.neutral800,
         ),
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: Theme.of(context)

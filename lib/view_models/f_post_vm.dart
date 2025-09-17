@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yeong_mood_tracker/models/f_post_model.dart';
 import 'package:yeong_mood_tracker/repos/b_auth_repo.dart';
@@ -22,6 +23,7 @@ class PostViewModel extends StreamNotifier<List<PostModel>> {
     state = AsyncValue.loading();
 
     final uid = ref.read(authRepository).user!.uid;
+    final uploadState = ref.read(postUploadProvider);
 
     state = await AsyncValue.guard(() async {
       final postId = _repository.generatePostId();
@@ -51,6 +53,8 @@ class PostViewModel extends StreamNotifier<List<PostModel>> {
         content: data["content"],
         thumbUrl: thumbUrl,
         imgUrls: imageUrls,
+        isPrivate: data["isPrivate"],
+        createdAt: Timestamp.fromDate(uploadState.createdAt),
       );
       await _repository.createPostWithId(post);
 
@@ -65,6 +69,37 @@ class PostViewModel extends StreamNotifier<List<PostModel>> {
   }
 }
 
+class PostUploadState {
+  final DateTime createdAt;
+
+  PostUploadState({required this.createdAt});
+}
+
+class PostUploadViewModel extends StateNotifier<PostUploadState> {
+  PostUploadViewModel()
+      : super(PostUploadState(
+          createdAt: DateTime.now().subtract(
+            Duration(minutes: DateTime.now().minute % 10),
+          ),
+        ));
+
+  void updateCreatedAt(DateTime dateTime) {
+    state = PostUploadState(createdAt: dateTime);
+  }
+
+  void resetToNow() {
+    final now = DateTime.now();
+    state = PostUploadState(
+      createdAt: now.subtract(Duration(minutes: now.minute % 10)),
+    );
+  }
+}
+
 final postProvider = StreamNotifierProvider<PostViewModel, List<PostModel>>(
   () => PostViewModel(),
+);
+
+final postUploadProvider =
+    StateNotifierProvider<PostUploadViewModel, PostUploadState>(
+  (ref) => PostUploadViewModel(),
 );

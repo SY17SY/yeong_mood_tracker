@@ -40,8 +40,8 @@ class NavTab extends ConsumerWidget {
               children: [
                 SvgPicture.asset(
                   svgPath,
-                  width: Sizes.d48,
-                  height: Sizes.d48,
+                  width: Sizes.d40,
+                  height: Sizes.d40,
                   colorFilter: ColorFilter.mode(
                     isDark ? Colors.white : Colors.black,
                     BlendMode.srcIn,

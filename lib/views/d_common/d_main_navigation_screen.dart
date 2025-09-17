@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
-import 'package:yeong_mood_tracker/view_models/settings_vm.dart';
 import 'package:yeong_mood_tracker/views/e_my_screen.dart';
 import 'package:yeong_mood_tracker/views/f_upload/f_upload_screen.dart';
 import 'package:yeong_mood_tracker/views/g_your_screen.dart';
@@ -39,7 +37,6 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = ref.read(settingsProvider.notifier).isDark(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -49,8 +46,7 @@ class _MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: isDark ? AppColors.neutral800 : AppColors.neutral100,
-        padding: EdgeInsets.symmetric(horizontal: Sizes.d8),
+        padding: EdgeInsets.symmetric(horizontal: Sizes.d16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

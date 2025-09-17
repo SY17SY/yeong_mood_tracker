@@ -2,12 +2,15 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yeong_mood_tracker/constants/colors.dart';
+import 'package:yeong_mood_tracker/constants/constants.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
 import 'package:yeong_mood_tracker/view_models/f_post_vm.dart';
 import 'package:yeong_mood_tracker/views/f_upload/f_camera_screen.dart';
+import 'package:yeong_mood_tracker/widgets/bottom_modal_datetime.dart';
 
 enum Mood { happy, excited, calm, sad, angry, anxious }
 
@@ -46,7 +49,7 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
 
   Mood? myMood;
   List<XFile>? imgs;
-
+  bool _isPrivate = true;
   bool _isWriting = false;
 
   void _startWriting() {
@@ -86,6 +89,21 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
     );
   }
 
+  void _togglePrivate() {
+    setState(() {
+      _isPrivate = !_isPrivate;
+    });
+  }
+
+  Future<void> _onTimePickerPressed() async {
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => const BottomModalDatetime(),
+    );
+  }
+
   Future<void> _onCameraPressed() async {
     final result = await Navigator.push(
       context,
@@ -111,10 +129,14 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
   }
 
   Future<void> _onSubmitTap() async {
+    if (_titleController.text.isEmpty || myMood == null) {
+      return;
+    }
     final data = {
       "title": _titleController.text,
-      "mood": moods[myMood] ?? "happy",
+      "mood": moods[myMood],
       "content": _contentController.text,
+      "isPrivate": _isPrivate,
     };
     await ref.read(postProvider.notifier).uploadPost(data: data);
   }
@@ -132,13 +154,29 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: TtitleMedium18("New"),
+        title: Consumer(
+          builder: (context, ref, child) {
+            final createdAt = ref.watch(postUploadProvider).createdAt;
+            return TtitleMedium18(
+              "${createdAt.month}월 ${createdAt.day}일 ${weekdays[createdAt.weekday]}요일",
+            );
+          },
+        ),
         elevation: 0.5,
         leading: TextButton(
           onPressed: _onCancelTap,
-          child: TbodyMedium16("Cancel", color: AppColors.neutral600),
+          child: TbodyMedium16("Cancel", color: AppColors.neutral500),
         ),
         leadingWidth: Sizes.d100,
+        actions: [
+          IconButton(
+            onPressed: _onSubmitTap,
+            icon: FaIcon(
+              FontAwesomeIcons.check,
+              color: _isWriting ? AppColors.neutral900 : AppColors.neutral500,
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(
@@ -158,6 +196,41 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
                     children: [],
                   ),
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        padding: EdgeInsets.fromLTRB(Sizes.d24, Sizes.d6, Sizes.d24, 0),
+        child: Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: _togglePrivate,
+                  child: TlabelLarge14(_isPrivate ? "비공개" : "공개"),
+                ),
+                IconButton(
+                  onPressed: _onCameraPressed,
+                  icon: FaIcon(FontAwesomeIcons.camera),
+                ),
+              ],
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final createdAt = ref.watch(postUploadProvider).createdAt;
+                  return TextButton(
+                    onPressed: _onTimePickerPressed,
+                    child: TtitleSmall16(
+                      "${createdAt.hour}시 ${createdAt.minute}분",
+                    ),
+                  );
+                },
               ),
             ),
           ],

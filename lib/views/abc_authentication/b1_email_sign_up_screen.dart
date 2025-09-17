@@ -165,6 +165,7 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
                             )
                           : null,
                     ),
+                    style: Theme.of(context).textTheme.titleSmall,
                     controller: _nameController,
                     autocorrect: false,
                     onSaved: (newValue) {
@@ -189,6 +190,7 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
                             )
                           : null,
                     ),
+                    style: Theme.of(context).textTheme.titleSmall,
                     controller: _emailController,
                     autocorrect: false,
                     validator: _isEmailValid,
@@ -225,6 +227,7 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
                         ],
                       ),
                     ),
+                    style: Theme.of(context).textTheme.titleSmall,
                     controller: _passwordController,
                     autocorrect: false,
                     obscureText: _obscureText,
@@ -262,6 +265,7 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
                         ],
                       ),
                     ),
+                    style: Theme.of(context).textTheme.titleSmall,
                     controller: _checkController,
                     autocorrect: false,
                     obscureText: _obscureText,

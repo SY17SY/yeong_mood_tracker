@@ -10,6 +10,7 @@ class PostModel {
   final List<String>? imgUrls;
   final int clovas;
   final int comments;
+  final bool isPrivate;
   final Timestamp? createdAt;
 
   PostModel({
@@ -22,6 +23,7 @@ class PostModel {
     this.imgUrls,
     this.clovas = 0,
     this.comments = 0,
+    required this.isPrivate,
     this.createdAt,
   });
 
@@ -35,6 +37,7 @@ class PostModel {
         imgUrls = json["imgUrls"],
         clovas = json["clovas"],
         comments = json["comments"],
+        isPrivate = json["isPrivate"],
         createdAt = json["createdAt"] as Timestamp;
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class PostModel {
       'imgUrls': imgUrls,
       'clovas': clovas,
       'comments': comments,
+      'isPrivate': isPrivate,
       'createdAt': FieldValue.serverTimestamp(),
     };
   }

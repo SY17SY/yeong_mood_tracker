@@ -165,6 +165,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       )
                                     : null,
                               ),
+                              style: Theme.of(context).textTheme.titleSmall,
                               controller: _emailController,
                               autocorrect: false,
                               textInputAction: TextInputAction.next,
@@ -201,6 +202,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   ],
                                 ),
                               ),
+                              style: Theme.of(context).textTheme.titleSmall,
                               controller: _passwordController,
                               autocorrect: false,
                               obscureText: _obscureText,

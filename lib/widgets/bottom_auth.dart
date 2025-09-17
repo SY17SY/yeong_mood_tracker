@@ -4,7 +4,6 @@ import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
-import 'package:yeong_mood_tracker/view_models/settings_vm.dart';
 
 class BottomAuth extends ConsumerWidget {
   final String title;
@@ -20,10 +19,8 @@ class BottomAuth extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(settingsProvider.notifier).isDark(context);
     return BottomAppBar(
       elevation: 1,
-      color: isDark ? AppColors.neutral800 : AppColors.neutral100,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: Sizes.d32),
         child: Row(
