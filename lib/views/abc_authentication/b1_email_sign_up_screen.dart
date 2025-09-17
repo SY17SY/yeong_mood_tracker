@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
 import 'package:yeong_mood_tracker/view_models/b_sign_up_vm.dart';
+import 'package:yeong_mood_tracker/widgets/auth_text_form_field.dart';
 import 'package:yeong_mood_tracker/widgets/form_button.dart';
-import 'package:yeong_mood_tracker/widgets/input_clear_button.dart';
 
 class EmailSignUpScreen extends ConsumerStatefulWidget {
   const EmailSignUpScreen({super.key});
@@ -27,36 +26,12 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Map<String, String> formData = {};
-  bool _obscureText = true;
 
-  String _name = "";
-  String _email = "";
-  String _password = "";
-  String _check = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _nameController.addListener(() {
-      setState(() {
-        _name = _nameController.text;
-      });
-    });
-    _emailController.addListener(() {
-      setState(() {
-        _email = _emailController.text;
-      });
-    });
-    _passwordController.addListener(() {
-      setState(() {
-        _password = _passwordController.text;
-      });
-    });
-    _checkController.addListener(() {
-      setState(() {
-        _check = _checkController.text;
-      });
-    });
+  String? _isNameValid(String? input) {
+    if (input == null || input.isEmpty) {
+      return "닉네임을 작성해 주세요.";
+    }
+    return null;
   }
 
   String? _isEmailValid(String? input) {
@@ -95,29 +70,17 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
     if (input == null || input.isEmpty) {
       return "비밀번호를 한 번 더 작성해 주세요.";
     }
-    if (input != _password) {
+    if (input != ref.read(signUpFormProvider).formData["password"]) {
       return "비밀번호가 일치하지 않습니다.";
     }
     return null;
-  }
-
-  void _toggleObscure() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
   }
 
   void _onSubmitTap() {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-
-        ref.read(signUpProvider.notifier).emailSignUp(
-              context: context,
-              name: formData["name"]!,
-              email: formData["email"]!,
-              password: formData["password"]!,
-            );
+        ref.read(signUpProvider.notifier).emailSignUp(context);
       }
     }
   }
@@ -152,133 +115,48 @@ class _EmailSignUpScreenState extends ConsumerState<EmailSignUpScreen> {
                   Gaps.v28,
                   TtitleMedium18("닉네임", color: AppColors.neutral500),
                   Gaps.v8,
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "name",
-                      suffix: _name.isNotEmpty
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InputClearButton(controller: _nameController),
-                                Gaps.h8,
-                              ],
-                            )
-                          : null,
-                    ),
-                    style: Theme.of(context).textTheme.titleSmall,
+                  AuthTextFormField(
+                    hintText: "name",
                     controller: _nameController,
-                    autocorrect: false,
-                    onSaved: (newValue) {
-                      if (newValue != null) {
-                        formData['name'] = newValue;
-                      }
-                    },
+                    validator: _isNameValid,
+                    fieldKey: 'name',
+                    formType: AuthFormType.signUp,
                   ),
                   Gaps.v28,
                   TtitleMedium18("이메일", color: AppColors.neutral500),
                   Gaps.v8,
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "email@example.com",
-                      suffix: _email.isNotEmpty
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InputClearButton(controller: _emailController),
-                                Gaps.h8,
-                              ],
-                            )
-                          : null,
-                    ),
-                    style: Theme.of(context).textTheme.titleSmall,
+                  AuthTextFormField(
+                    hintText: "email@example.com",
                     controller: _emailController,
-                    autocorrect: false,
                     validator: _isEmailValid,
-                    onSaved: (newValue) {
-                      if (newValue != null) {
-                        formData['email'] = newValue;
-                      }
-                    },
+                    fieldKey: 'email',
+                    formType: AuthFormType.signUp,
                   ),
                   Gaps.v28,
                   TtitleMedium18("비밀번호", color: AppColors.neutral500),
                   Gaps.v8,
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "password",
-                      suffix: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (_password.isNotEmpty) ...[
-                            InputClearButton(controller: _passwordController),
-                            Gaps.h16,
-                          ],
-                          GestureDetector(
-                            onTap: _toggleObscure,
-                            child: FaIcon(
-                              _obscureText
-                                  ? FontAwesomeIcons.eye
-                                  : FontAwesomeIcons.eyeSlash,
-                              color: AppColors.neutral400,
-                              size: Sizes.d20,
-                            ),
-                          ),
-                          Gaps.h8,
-                        ],
-                      ),
-                    ),
-                    style: Theme.of(context).textTheme.titleSmall,
+                  AuthTextFormField(
+                    hintText: "password",
                     controller: _passwordController,
-                    autocorrect: false,
-                    obscureText: _obscureText,
                     validator: _isPasswordValid,
-                    onSaved: (newValue) {
-                      if (newValue != null) {
-                        formData['password'] = newValue;
-                      }
-                    },
+                    fieldKey: 'password',
+                    formType: AuthFormType.signUp,
                   ),
                   Gaps.v28,
                   TtitleMedium18("비밀번호 확인", color: AppColors.neutral500),
                   Gaps.v8,
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "password",
-                      suffix: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (_check.isNotEmpty) ...[
-                            InputClearButton(controller: _checkController),
-                            Gaps.h16,
-                          ],
-                          GestureDetector(
-                            onTap: _toggleObscure,
-                            child: FaIcon(
-                              _obscureText
-                                  ? FontAwesomeIcons.eye
-                                  : FontAwesomeIcons.eyeSlash,
-                              color: AppColors.neutral400,
-                              size: Sizes.d20,
-                            ),
-                          ),
-                          Gaps.h8,
-                        ],
-                      ),
-                    ),
-                    style: Theme.of(context).textTheme.titleSmall,
+                  AuthTextFormField(
+                    hintText: "password",
                     controller: _checkController,
-                    autocorrect: false,
-                    obscureText: _obscureText,
                     validator: _checkPassword,
+                    fieldKey: "check",
+                    formType: AuthFormType.signUp,
                   ),
                   Gaps.v48,
                   FormButton(
                     title: "회원가입",
                     onTap: _onSubmitTap,
-                    disabled: _name.isEmpty ||
-                        _email.isEmpty ||
-                        _password.isEmpty ||
-                        ref.watch(signUpProvider).isLoading,
+                    disabled: ref.watch(signUpProvider).isLoading,
                   ),
                   Gaps.v48,
                 ],

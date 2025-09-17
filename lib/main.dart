@@ -68,30 +68,8 @@ class MyApp extends ConsumerWidget {
               .textTheme
               .titleMedium!
               .copyWith(color: AppColors.neutral400),
-          errorStyle: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(color: AppColors.error),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.neutral300,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryLight,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.error,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.error,
-            ),
-          ),
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
         ),
         tabBarTheme: TabBarTheme(
           labelStyle: Theme.of(context).textTheme.titleSmall,
@@ -171,30 +149,8 @@ class MyApp extends ConsumerWidget {
               .textTheme
               .titleMedium!
               .copyWith(color: AppColors.neutral500),
-          errorStyle: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(color: AppColors.error),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.neutral700,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryDark,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.error,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.error,
-            ),
-          ),
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
         ),
         tabBarTheme: TabBarTheme(
           labelStyle: Theme.of(context).textTheme.titleSmall,

@@ -6,31 +6,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/constants.dart';
+import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
 import 'package:yeong_mood_tracker/view_models/f_post_vm.dart';
 import 'package:yeong_mood_tracker/views/f_upload/f_camera_screen.dart';
 import 'package:yeong_mood_tracker/widgets/bottom_modal_datetime.dart';
-
-enum Mood { happy, excited, calm, sad, angry, anxious }
-
-const moods = {
-  Mood.happy: "happy",
-  Mood.excited: "excited",
-  Mood.calm: "calm",
-  Mood.sad: "sad",
-  Mood.angry: "angry",
-  Mood.anxious: "anxious",
-};
-
-const moodImgs = {
-  Mood.happy: "assets/images/happy.png",
-  Mood.excited: "assets/images/excited.png",
-  Mood.calm: "assets/images/calm.png",
-  Mood.sad: "assets/images/sad.png",
-  Mood.angry: "assets/images/angry.png",
-  Mood.anxious: "assets/images/anxious.png",
-};
+import 'package:yeong_mood_tracker/widgets/mood_buttons.dart';
 
 class UploadScreen extends ConsumerStatefulWidget {
   static const routeName = "upload";
@@ -47,10 +29,26 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
   final TextEditingController _contentController = TextEditingController();
   final PageController _pageController = PageController();
 
-  Mood? myMood;
+  String? _title;
+  String? _content;
   List<XFile>? imgs;
   bool _isPrivate = true;
   bool _isWriting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController.addListener(() {
+      setState(() {
+        _title = _titleController.text;
+      });
+    });
+    _contentController.addListener(() {
+      setState(() {
+        _content = _contentController.text;
+      });
+    });
+  }
 
   void _startWriting() {
     setState(() {
@@ -89,6 +87,12 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
     );
   }
 
+  void _onDeletePressed(XFile img) {
+    setState(() {
+      imgs!.remove(img);
+    });
+  }
+
   void _togglePrivate() {
     setState(() {
       _isPrivate = !_isPrivate;
@@ -122,20 +126,15 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
     setState(() {});
   }
 
-  void _onDeletePressed(XFile img) {
-    setState(() {
-      imgs!.remove(img);
-    });
-  }
-
   Future<void> _onSubmitTap() async {
-    if (_titleController.text.isEmpty || myMood == null) {
+    final uploadState = ref.read(postUploadProvider);
+    if (_title == null || uploadState.mood == null) {
       return;
     }
     final data = {
-      "title": _titleController.text,
-      "mood": moods[myMood],
-      "content": _contentController.text,
+      "title": _title,
+      "mood": uploadState.mood!,
+      "content": _content,
       "isPrivate": _isPrivate,
     };
     await ref.read(postProvider.notifier).uploadPost(data: data);
@@ -183,18 +182,49 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    Sizes.d24,
-                    Sizes.d24,
-                    Sizes.d24,
-                    Sizes.d60,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: Sizes.d10,
-                    children: [],
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.d16,
+                          vertical: Sizes.d16,
+                        ),
+                        child: MoodButtons(),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        Sizes.d32,
+                        Sizes.d10,
+                        Sizes.d32,
+                        Sizes.d60,
+                      ),
+                      child: Column(
+                        children: [
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: "제목",
+                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
+                            controller: _titleController,
+                          ),
+                          Divider(color: AppColors.neutral500),
+                          Gaps.v10,
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: "내용",
+                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
+                            maxLines: null,
+                            controller: _contentController,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -221,13 +251,17 @@ class _UploadScreenState extends ConsumerState<UploadScreen> {
             Positioned(
               left: 0,
               right: 0,
+              top: 0,
+              bottom: 0,
               child: Consumer(
                 builder: (context, ref, child) {
                   final createdAt = ref.watch(postUploadProvider).createdAt;
-                  return TextButton(
-                    onPressed: _onTimePickerPressed,
-                    child: TtitleSmall16(
-                      "${createdAt.hour}시 ${createdAt.minute}분",
+                  return Center(
+                    child: TextButton(
+                      onPressed: _onTimePickerPressed,
+                      child: TtitleSmall16(
+                        "${createdAt.hour}시 ${createdAt.minute}분",
+                      ),
                     ),
                   );
                 },

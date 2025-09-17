@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yeong_mood_tracker/constants/colors.dart';
 import 'package:yeong_mood_tracker/constants/gaps.dart';
 import 'package:yeong_mood_tracker/constants/sizes.dart';
 import 'package:yeong_mood_tracker/constants/text.dart';
 import 'package:yeong_mood_tracker/view_models/c_login_vm.dart';
+import 'package:yeong_mood_tracker/widgets/auth_text_form_field.dart';
 import 'package:yeong_mood_tracker/widgets/bottom_auth.dart';
 import 'package:yeong_mood_tracker/widgets/form_button.dart';
-import 'package:yeong_mood_tracker/widgets/input_clear_button.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = "login";
@@ -26,26 +25,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Map<String, String> formData = {};
-  bool _obscureText = true;
-
-  String _email = "";
-  String _password = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _emailController.addListener(() {
-      setState(() {
-        _email = _emailController.text;
-      });
-    });
-    _passwordController.addListener(() {
-      setState(() {
-        _password = _passwordController.text;
-      });
-    });
-  }
 
   String? _isEmailValid(String? input) {
     if (input == null || input.isEmpty) {
@@ -79,22 +58,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return null;
   }
 
-  void _toggleObscure() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
   void _onSubmitTap() {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-
-        ref.read(loginProvider.notifier).login(
-              context: context,
-              email: formData["email"]!,
-              password: formData["password"]!,
-            );
+        ref.read(loginProvider.notifier).login(context);
       }
     }
   }
@@ -150,77 +118,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: "email@example.com",
-                                suffix: _email.isNotEmpty
-                                    ? Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          InputClearButton(
-                                            controller: _emailController,
-                                          ),
-                                          Gaps.h8,
-                                        ],
-                                      )
-                                    : null,
-                              ),
-                              style: Theme.of(context).textTheme.titleSmall,
+                            AuthTextFormField(
+                              hintText: "email@example.com",
                               controller: _emailController,
-                              autocorrect: false,
-                              textInputAction: TextInputAction.next,
                               validator: _isEmailValid,
-                              onSaved: (newValue) {
-                                if (newValue != null) {
-                                  formData['email'] = newValue;
-                                }
-                              },
+                              fieldKey: 'email',
+                              formType: AuthFormType.login,
                             ),
                             Gaps.v10,
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: "password",
-                                suffix: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    if (_password.isNotEmpty) ...[
-                                      InputClearButton(
-                                          controller: _passwordController),
-                                      Gaps.h16,
-                                    ],
-                                    GestureDetector(
-                                      onTap: _toggleObscure,
-                                      child: FaIcon(
-                                        _obscureText
-                                            ? FontAwesomeIcons.eye
-                                            : FontAwesomeIcons.eyeSlash,
-                                        color: AppColors.neutral400,
-                                        size: Sizes.d20,
-                                      ),
-                                    ),
-                                    Gaps.h8,
-                                  ],
-                                ),
-                              ),
-                              style: Theme.of(context).textTheme.titleSmall,
+                            AuthTextFormField(
+                              hintText: "password",
                               controller: _passwordController,
-                              autocorrect: false,
-                              obscureText: _obscureText,
-                              onEditingComplete: _onSubmitTap,
                               validator: _isPasswordValid,
-                              onSaved: (newValue) {
-                                if (newValue != null) {
-                                  formData['password'] = newValue;
-                                }
-                              },
+                              fieldKey: "password",
+                              formType: AuthFormType.login,
                             ),
                             Gaps.v32,
                             FormButton(
                               title: "로그인",
                               onTap: _onSubmitTap,
-                              disabled: _email.isEmpty ||
-                                  _password.isEmpty ||
-                                  ref.watch(loginProvider).isLoading,
+                              disabled: ref.watch(loginProvider).isLoading,
                             ),
                           ],
                         ),

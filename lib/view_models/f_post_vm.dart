@@ -70,26 +70,39 @@ class PostViewModel extends StreamNotifier<List<PostModel>> {
 }
 
 class PostUploadState {
+  final String? mood;
   final DateTime createdAt;
 
-  PostUploadState({required this.createdAt});
+  PostUploadState({this.mood, required this.createdAt});
 }
 
 class PostUploadViewModel extends StateNotifier<PostUploadState> {
   PostUploadViewModel()
-      : super(PostUploadState(
-          createdAt: DateTime.now().subtract(
-            Duration(minutes: DateTime.now().minute % 10),
+      : super(
+          PostUploadState(
+            mood: null,
+            createdAt: DateTime.now().subtract(
+              Duration(minutes: DateTime.now().minute % 10),
+            ),
           ),
-        ));
+        );
+
+  void updateMood(String? mood) {
+    if (state.mood == mood) {
+      state = PostUploadState(mood: null, createdAt: state.createdAt);
+      return;
+    }
+    state = PostUploadState(mood: mood, createdAt: state.createdAt);
+  }
 
   void updateCreatedAt(DateTime dateTime) {
-    state = PostUploadState(createdAt: dateTime);
+    state = PostUploadState(mood: state.mood, createdAt: dateTime);
   }
 
   void resetToNow() {
     final now = DateTime.now();
     state = PostUploadState(
+      mood: state.mood,
       createdAt: now.subtract(Duration(minutes: now.minute % 10)),
     );
   }
